@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <script>
+        $(document).ready(function() {
+            $("btnLogin").click(function() {
+                console.log()
+                var username = $("#username").val();
+                var password = $("#password").val();
+                console.log()
+                $.ajax({
+                    type: "POST",
+                    url: "/login",
+                    data: {
+                        username: username,
+                        password: password
+                    }
+                }).done(function(data, state, xhr) {
+                    console.log()
+                    alert(data);
+                }).fail(function(xhr, state) {
+                    console.log()
+                    alert("Login Fail");
+                    // $(".alert").show().fadeOut(3000);
+                });
+            });
+        });
+        $(document).ready(function() {
+            $('#password').keypress(function() {
+                $('#placeholder').html("");
+            });
+        });
+        // window.location.replace("./dashboard.html ");
+        //alert("login ")
+        // }
+    </script>
+
+    <body>
+        <!-- Bootstrap core JavaScript-->
+        <script src="../../static/vendor/jquery/jquery.min.js"></script>
+        <script src="../../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <!-- Custom styles for this page -->
+        <link href="../../static/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+        <!-- dropZone css-->
+        <link href="../../static/css/dropzone.css" rel="stylesheet">
+        <!-- Custom styles for this template-->
+        <link href="../../static/css/sb-admin-2.min.css" rel="stylesheet">
+        <!-- Custom fonts for this template-->
+        <link href="../../static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+        <div id="login">
+            <div class="container">
+                <div id=" login-row " class="row justify-content-center align-items-center " style="background-color: aqua; margin: 5%; border-radius: 30px;">
+                    <div id="login-column " class="col-md-6 ">
+                        <div id="login-box " class="col-md-12 ">
+                            <form id="login-form " class="form " action=" " method="post ">
+                                <div class="imgcontainer " style="text-align: center; margin-top: 5%; ">
+                                    <img src="../../static/img/avatar.png" class="avatar " style="width: 60%; height: 60%; ">
+                                </div>
+                                <h3 style="text-align: center;margin-top:2%; margin-bottom: 2%; color: #000000; ">Social Network Analysis </h3>
+                                <div class="form-group ">
+                                    <input type="text " id="username " placeholder="Username " class="form-control ">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <input type="password" id="password " placeholder="Password " class="form-control pass-swap">
+                                </div>
+                                <div class="form-group " style="text-align: center; ">
+                                    <button id="btnLogin " class="btn btn-primary ">
+                                    <a class="btn btn-primary ">Login</a></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
