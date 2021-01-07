@@ -18,9 +18,11 @@ def requireToken(f):
   @wraps(f)
   def decorated():
     try:
-      token = request.headers["Authorization"]       
+      # print(request.headers) 
+      token = request.headers["Authorization"]        
       try:
         data = jwt.decode(token, app.secret_key, algorithms=["HS256"])
+        print(data)
       except:
         return jsonify({"message": "invalid token"}), 403
     except:
@@ -28,15 +30,15 @@ def requireToken(f):
     return f(data["user_id"])
   return decorated
 
-def login_required(f):
-    @wraps(f)
-    def secure_function(): 
-      try:
-        request.headers["Authorization"]
-      except:       
-        return redirect('/login')      
-      return f()
-    return secure_function
+# def login_required(f):
+#     @wraps(f)
+#     def secure_function(): 
+#       try:
+#         request.headers["Authorization"]
+#       except:       
+#         return redirect('/login')      
+#       return f()
+#     return secure_function
 
 @app.route('/')
 @app.route('/login', methods = ["GET", "POST"])
@@ -65,7 +67,7 @@ def login():
 @app.route('/reset_password', methods = ["POST"])
 @requireToken
 def reset_password(user_id):  
-  req = request.json
+  req = request.get_json()
   if not req:
     return make_response("data is null", 403)
   else:
@@ -84,8 +86,8 @@ def reset_password(user_id):
       return make_response("password incorrect", 404)
     
 @app.route('/dashboard', methods= ["GET"])
-@requireToken
-def dashboard(user_id):
+# @requireToken
+def dashboard():
   formatted_date = now.strftime('%Y-%m-%d')
   sql = "SELECT * FROM tb_topkeyword WHERE k_date = %s"
   cur = mysql.connection.cursor()
@@ -96,8 +98,8 @@ def dashboard(user_id):
   return jsonify(data_json)
 
 @app.route('/list_dowload', methods = ["GET"])
-@requireToken
-def list_dowloadn(user_id):
+# @requireToken
+def list_dowloadn():
   sql = "SELECT * FROM tb_data"
   cur = mysql.connection.cursor()
   cur.execute(sql)
@@ -113,12 +115,10 @@ def downloadFile_t(filename):
     return download
 
 @app.route('/home')
-@login_required
 def home():  
   return render_template('dashboard.html')
 
 @app.route('/changepassword')
-@login_required
 def changepasswordPage():
     return render_template('changepassword.html')
 
