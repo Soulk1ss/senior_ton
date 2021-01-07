@@ -142,10 +142,11 @@
                                 <a class="dropdown-item" href="/changepassword" data-target="">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>Changepassword
                                 </a>
-                                <a class="dropdown-item" href="window.location.replace(/login)">
+                                <a class="dropdown-item" onclick= "window.location.replace('/login')">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> Logout
                                 </a>
                             </div>
+                            
                         </li>
                     </ul>
                 </nav>
@@ -320,7 +321,7 @@
                         link.href = url
                         link.setAttribute("download", `${e.target.value}`)
                         document.body.append(link)
-                        link.click();                        
+                        link.click();
                     }).catch(function (err) {
                         console.log(err);
                     })
